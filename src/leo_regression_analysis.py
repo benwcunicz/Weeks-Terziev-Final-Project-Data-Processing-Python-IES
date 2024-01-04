@@ -23,7 +23,7 @@ leo_df = leo_df_unfilitered.drop('Code', axis=1)
 leo_df.sort_values(by='Year')
 
 #list of launches not affiliated with nasa to drop
-not_affiliated_with_nasa_list = ['Angara', 'Ariane 44', 'Ariane 5G', 'Athena 1', 'Dnepr', 'Electron', 'Epsilon', 'Falcon 1', 'GSLV', 'H-II', 'Kosmos', 'Kuaizhou', 'LVM3', 'Long March 11', 'Long March 2A', 'Long March 2C', 'Long March 2D', 'Long March 2E', 'Long March 3A', 'Long March 3B', 'Long March 4B', 'Long March 5', 'M-V', 'PSLV', 'Pegasus XL', 'Proton', 'R-36 / Cyclone', 'Rokot', 'Scout', 'Shavit', 'Shian Quxian', 'Shtil', 'Soyuz', 'Start', 'Strela', 'Vega', 'Zenit 2', 'Zenit 3SL']
+not_affiliated_with_nasa_list = ['Angara', 'Ariane 44', 'Ariane 5G', 'Dnepr', 'Electron', 'Epsilon', 'Falcon 1', 'GSLV', 'H-II', 'Kosmos', 'Kuaizhou', 'LVM3', 'Long March 11', 'Long March 2A', 'Long March 2C', 'Long March 2D', 'Long March 2E', 'Long March 3A', 'Long March 3B', 'Long March 4B', 'Long March 5', 'M-V', 'PSLV', 'Pegasus XL', 'Proton', 'R-36 / Cyclone', 'Rokot', 'Shavit', 'Shian Quxian', 'Shtil', 'Soyuz', 'Start', 'Strela', 'Vega', 'Zenit 2', 'Zenit 3SL']
 
 #calculate the average cost per decade and add it to the list of average costs
 def calculate_average_cost_per_decade(df, start_year, end_year, average_costs_list):
