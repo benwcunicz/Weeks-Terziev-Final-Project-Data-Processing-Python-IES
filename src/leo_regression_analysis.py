@@ -74,7 +74,7 @@ outliers_in_cost_per_kg_count = check_outliers_cost(leo_df)
 print(f"The number of outliers in the cost_per_kg series is {outliers_in_cost_per_kg_count}")
 print(f"The number of outliers in the NASA budget series is {outliers_in_NASA_budget_count}")
 
-#calculate average costs per each decade of available data from the dataset for the small launch class
+#calculate average costs per each decade of available data from the dataset 
 average_costs_per_decade = []
 decades = [(1960, 1970), (1970, 1980), (1980, 1990), (1990, 2000), (2000, 2010), (2010, 2020)]
 for start_year, end_year in decades:
