@@ -12,7 +12,7 @@ nasa_bud_inflat_adj_df = nasa_bud_inflat_adj_df[(nasa_bud_inflat_adj_df['Fiscal 
 inflation_rate_df = pd.read_csv('inflation_rate_data.csv')
 
 #import federal spending data
-federal_spending_df = pd.read_excel('federal_spending_data.xls')
+federal_spending_df = pd.read_excel('federal_spending_data.xls',sheet_name='organized_spending')
 
 print(federal_spending_df)
 
