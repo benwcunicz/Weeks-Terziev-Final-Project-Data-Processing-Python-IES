@@ -1,3 +1,4 @@
+#Note: "federal spending" here means government expenditure as a percentage of GDP
 import pandas as pd
 
 #import nasa budget inflation-adjusted data from dataset and filter data by dropping unneccessary columns and rows that contain NaN data.
@@ -10,6 +11,10 @@ nasa_bud_inflat_adj_df = nasa_bud_inflat_adj_df[(nasa_bud_inflat_adj_df['Fiscal 
 #import inflation rate data
 inflation_rate_df = pd.read_csv('inflation_rate_data.csv')
 
+#import federal spending data
+federal_spending_df = pd.read_excel('federal_spending_data.xls',sheet_name='organized_spending')
+
+print(federal_spending_df)
 
 #function for checking for outliers in NASA inflation-adjusted budget data, returns number of outliers
 def check_outliers_budget(df):
