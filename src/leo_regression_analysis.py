@@ -111,22 +111,25 @@ model.fit(x_scaled,y_scaled)
 #make predictions for variable y
 y_pred = model.predict(x_scaled)
 
-#evaluate the mean squared error of the model
+#evaluate the mean squared error of the model and r-squared score
 mse = mean_squared_error(y_scaled, y_pred)
-print("Mean Squared Error:", mse)
-
+r_squared = model.score(x_scaled,y_scaled)
+print(f"Mean Squared Error:{mse}")
+print(f"R-squared: {r_squared}")
 #printing slope and intercept of linear regression line
-print("Slope:", model.coef_[0][0])
-print("Intercept:", model.intercept_[0])
+print(f"Slope:{model.coef_[0][0]}")
+print(f"Intercept:{model.intercept_[0]}")
 
 #calculate pearson correlation coefficient and print it
 pearson_correlation = average_budget_per_decade_series.corr(average_costs_per_decade_series)
-print("Pearson Correlation Coefficient:", pearson_correlation)
+print(f"Pearson Correlation Coefficient:{pearson_correlation}")
 
+#matplotlib code
 #Unscale variables for easier interpretation
 x_scaled_back = scaler.inverse_transform(x_scaled)
 y_scaled_back = scaler.inverse_transform(y_scaled)
 #Create and label plot
+plt.title('Average NASA Budget per Decade vs. Average cost per kilogram to LEO per decade')
 plt.scatter(x_scaled_back, y_scaled_back, color='blue', label='Original Data')
 plt.xlabel('Average NASA Budget per Decade millions of $')
 plt.ylabel('Average Cost per kilogram per Decade $')
