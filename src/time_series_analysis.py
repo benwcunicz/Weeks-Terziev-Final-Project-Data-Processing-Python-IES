@@ -139,7 +139,79 @@ print(f"Pearson correlation for inflation is {pearson_correlation_inflation}")
 print(f"Pearson correlation for GDP is {pearson_correlation_gdp}")
 print(f"Pearson correlation for federal spending is {pearson_correlation_federal_spending}")
 
-#matplotlib code
-#plotting the raw data vs the 4 year rolling mean and raw data vs. 4 year rolling standard deviation
+#Plotting the raw data vs the 4 year rolling mean and raw data vs. 4 year rolling standard deviation
 
-#plotting linear regression graphs
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 6))
+
+#Raw data vs. 4-year rolling mean
+ax1.plot(nasa_bud_inflat_adj_df['Fiscal Year'], nasa_bud_inflat_adj_df['Actual'], label='Budget')
+ax1.plot(nasa_bud_inflat_adj_df['Fiscal Year'], nasa_bud_inflat_adj_df['Rolling Mean'], label='4-Year Rolling Mean', color='red')
+ax1.set_title('NASA Budget vs 4-Year Rolling Mean')
+ax1.set_xlabel('Year')
+ax1.set_ylabel('NASA Budget')
+ax1.legend()
+
+#Raw data vs. 4-year rolling standard deviation
+ax2.plot(nasa_bud_inflat_adj_df['Fiscal Year'], nasa_bud_inflat_adj_df['Actual'], label='Budget')
+ax2.plot(nasa_bud_inflat_adj_df['Fiscal Year'], nasa_bud_inflat_adj_df['Rolling Standard Dev'], label='4-Year Rolling Std. Dev.', color='orange')
+ax2.set_title('NASA Budget vs 4-Year Rolling Standard Deviation')
+ax2.set_xlabel('Year')
+ax2.set_ylabel('NASA Budget')
+ax2.legend()
+
+plt.tight_layout()
+plt.show()
+
+#Visualizing the variables over time relative to 1960 value
+
+years = nasa_bud_inflat_adj_df['Fiscal Year']
+nasa_budget_1960_normalized = nasa_bud_inflat_adj_df['Actual'] / nasa_bud_inflat_adj_df[nasa_bud_inflat_adj_df['Fiscal Year'] == 1960]['Actual'].values[0]
+inflation_rate_1960_normalized = inflation_rate_df['Inflation Rate'] / inflation_rate_df[inflation_rate_df['Year'] == 1960]['Inflation Rate'].values[0]
+federal_spending_1960_normalized = federal_spending_df['Federal Spending'] / federal_spending_df[federal_spending_df['Year'] == 1960]['Federal Spending'].values[0]
+gdp_1960_normalized = us_gdp_df['US GDP'] / us_gdp_df[us_gdp_df['Year'] == 1960]['US GDP'].values[0]
+
+plt.figure(figsize=(8, 6))
+
+# Plot each normalized data set
+plt.plot(years, nasa_budget_1960_normalized, label='NASA Budget')
+plt.plot(years, inflation_rate_1960_normalized, label='Inflation Rate')
+plt.plot(years, federal_spending_1960_normalized, label='Federal Spending')
+plt.plot(years, gdp_1960_normalized, label='GDP')
+
+plt.title('Relevant Variables Overtime Relative to Their Value in 1960')
+plt.xlabel('Year')
+plt.ylabel('Relative Value (1960 = 1)')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+#Linear regression graphs
+
+fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 15))
+
+# NASA Budget vs US GDP
+ax1.scatter(x, y1, color='blue', label='US GDP')
+ax1.plot(x, scaler.inverse_transform(y1_pred), color='red', label='Predicted US GDP')
+ax1.set_title(f'NASA Budget vs US GDP (MSE: {mse:.2f}, R²: {r_squared_model_1:.2f})')
+ax1.set_xlabel('NASA Budget')
+ax1.set_ylabel('US GDP')
+ax1.legend()
+
+# NASA Budget vs Federal Spending
+ax2.scatter(x, y2, color='blue', label='Federal Spending')
+ax2.plot(x, scaler.inverse_transform(y2_pred), color='red', label='Predicted Federal Spending')
+ax2.set_title(f'NASA Budget vs Federal Spending (MSE: {mse2:.2f}, R²: {r_squared_model_2:.2f})')
+ax2.set_xlabel('NASA Budget')
+ax2.set_ylabel('Federal Spending')
+ax2.legend()
+
+# NASA Budget vs Inflation Rate
+ax3.scatter(x, y3, color='blue', label='Inflation Rate')
+ax3.plot(x, robust_scaler.inverse_transform(y3_pred), color='red', label='Predicted Inflation Rate')
+ax3.set_title(f'NASA Budget vs Inflation Rate (MSE: {mse3:.2f}, R²: {r_squared_model_3:.2f})')
+ax3.set_xlabel('NASA Budget')
+ax3.set_ylabel('Inflation Rate')
+ax3.legend()
+
+plt.tight_layout()
+plt.show()
