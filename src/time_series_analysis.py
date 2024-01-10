@@ -82,24 +82,48 @@ pearson_correlation_inflation = check_corr(inflation_rate_df['Inflation Rate'])
 pearson_correlation_federal_spending = check_corr(federal_spending_df['Federal Spending'])
 pearson_correlation_gdp = check_corr(us_gdp_df['US GDP'])
 
-#linear regression for nasa inflation-adjusted budget and the inflation rate data
+#linear regression for nasa inflation-adjusted budget and the US GDP, Federal Spending and Inflation Rate data
 x = nasa_bud_inflat_adj_df['Actual'].to_frame()
 y1 = us_gdp_df['US GDP'].to_frame()
+y2 = federal_spending_df['Federal Spending'].to_frame()
+y3 = inflation_rate_df['Inflation Rate'].to_frame()
 
 #scale GDP and inflation-adjusted buget. Use StandardScaler due to absence of outliers in inflation-adjusted budget and GDP datasets. 
+#use RobustScaler for inflation rate data due to presence of several outliers
 scaler = StandardScaler()
+robust_scaler = RobustScaler()
 
 x_scaled = scaler.fit_transform(x)
+x1_scaled = robust_scaler.fit_transform(x)
 y1_scaled = scaler.fit_transform(y1)
+y2_scaled = scaler.fit_transform(y2)
+y3_scaled = robust_scaler.fit_transform(y3)
 
-model = LinearRegression()
-model.fit(x_scaled,y1_scaled)
-y_pred = model.predict(x_scaled)
-mse = mean_squared_error(y1_scaled, y_pred)
+model1 = LinearRegression()
+model2 = LinearRegression()
+model3 = LinearRegression()
+model1.fit(x_scaled,y1_scaled)
+model2.fit(x_scaled,y2_scaled)
+model3.fit(x1_scaled,y3_scaled)
 
-print(f"MSE is {mse}")
-print("Slope:", model.coef_[0][0])
-print("Intercept:", model.intercept_[0])
+y1_pred = model1.predict(x_scaled)
+y2_pred = model2.predict(x_scaled)
+y3_pred = model3.predict(x1_scaled)
+
+#calculate mean squared error for each model
+mse = mean_squared_error(y1_scaled, y1_pred)
+mse2 = mean_squared_error(y2_scaled,y2_pred)
+mse3 = mean_squared_error(y3_scaled,y3_pred)
+
+#calculate r_squared score for each model
+r_squared_model_1 = model1.score(x_scaled,y1_scaled)
+r_squared_model_2 = model2.score(x_scaled,y2_scaled)
+r_squared_model_3 = model3.score(x_scaled,y3_scaled)
+
+print(f"MSE is {mse}, {mse2},{mse3}")
+print(f"R-squared is {r_squared_model_1},{r_squared_model_2},{r_squared_model_3}")
+print(f"Slope: {model1.coef_[0][0]},{model2.coef_[0][0]},{model3.coef_[0][0]}")
+print(f"Intercept: {model1.intercept_[0]}, {model2.intercept_[0]},{model3.intercept_[0]}")
 
 
 #find rolling mean and standard deviation of time series data
@@ -117,3 +141,5 @@ print(f"Pearson correlation for federal spending is {pearson_correlation_federal
 
 #matplotlib code
 #plotting the raw data vs the 4 year rolling mean and raw data vs. 4 year rolling standard deviation
+
+#plotting linear regression graphs
