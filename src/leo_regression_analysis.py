@@ -7,18 +7,18 @@ from sklearn.preprocessing import RobustScaler
 import matplotlib.pyplot as plt
 
 #import the 'cost space launches low earth orbit' dataset (abbreviated as leo)
-leo_df_unfilitered = pd.read_csv('cost-space-launches-low-earth-orbit.csv')
+leo_df_unfiltered = pd.read_csv('cost-space-launches-low-earth-orbit.csv')
 
 #import NASA's annual budget per year dataset
-nasa_annual_budget_unfilitered = pd.read_csv('nasa-annual-budget.csv')
+nasa_annual_budget_unfiltered = pd.read_csv('nasa-annual-budget.csv')
 
 #drop columns from NASA annual budget dataset
 columns_to_drop_NASA_budget_df = ['Entity','Code']
 #drop unneccessary columns from NASA dataset and filter by years between 1960 and 2020
-nasa_budget_df = nasa_annual_budget_unfilitered[(nasa_annual_budget_unfilitered['Year']>=1960)&(nasa_annual_budget_unfilitered['Year']<=2020)].drop(columns=columns_to_drop_NASA_budget_df,axis=1)
+nasa_budget_df = nasa_annual_budget_unfiltered[(nasa_annual_budget_unfiltered['Year']>=1960)&(nasa_annual_budget_unfiltered['Year']<=2020)].drop(columns=columns_to_drop_NASA_budget_df,axis=1)
 
 #filter the leo dataset, by dropping the unused "Code" column
-leo_df = leo_df_unfilitered.drop('Code', axis=1)
+leo_df = leo_df_unfiltered.drop('Code', axis=1)
 #sort values by year in ascending order
 leo_df.sort_values(by='Year')
 
