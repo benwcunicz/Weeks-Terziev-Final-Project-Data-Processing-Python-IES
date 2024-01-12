@@ -124,18 +124,18 @@ print(f"Intercept:{model.intercept_[0]}")
 pearson_correlation = average_budget_per_decade_series.corr(average_costs_per_decade_series)
 print(f"Pearson Correlation Coefficient:{pearson_correlation}")
 
-#matplotlib code
-#Unscale variables for easier interpretation
+#Unscale variables for easier visual interpretation
 x_scaled_back = scaler.inverse_transform(x_scaled)
 y_scaled_back = scaler.inverse_transform(y_scaled)
 #Create and label plot
-plt.title('Average NASA Budget per Decade vs. Average cost per kilogram to LEO per decade')
+plt.figure(figsize=(11, 6))
+plt.title('NASA Budget and Costs of Launches to LEO')
 plt.scatter(x_scaled_back, y_scaled_back, color='blue', label='Original Data')
-plt.xlabel('Average NASA Budget per Decade millions of $')
-plt.ylabel('Average Cost per kilogram per Decade $')
+plt.xlabel('Average NASA Budget Millions of Dollars')
+plt.ylabel('Average Cost per Kilogram in Dollars')
 #Input regression line into scatter plot
 plt.plot(x_scaled_back, scaler.inverse_transform(y_pred), color='red')
-plt.text(0.05, 1.05, f'Correlation: {pearson_correlation:.2f}', 
+plt.text(0.05, 0.95, f'Correlation: {pearson_correlation:.2f}', 
          transform=plt.gca().transAxes, bbox=dict(facecolor='white'))
 #Label each dot
 decade_labels = ["1960's","1970's","1980's","1990's", "2000's","2010's"]

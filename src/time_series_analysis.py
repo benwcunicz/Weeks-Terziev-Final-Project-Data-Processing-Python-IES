@@ -178,7 +178,7 @@ plt.plot(years, inflation_rate_1960_normalized, label='Inflation Rate')
 plt.plot(years, federal_spending_1960_normalized, label='Federal Spending')
 plt.plot(years, gdp_1960_normalized, label='GDP')
 
-plt.title('Relevant Variables Overtime Relative to Their Value in 1960')
+plt.title('Development of Relevant Variables Since 1960')
 plt.xlabel('Year')
 plt.ylabel('Relative Value (1960 = 1)')
 plt.legend()
